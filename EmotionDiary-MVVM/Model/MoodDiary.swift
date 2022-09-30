@@ -19,7 +19,7 @@ extension MoodDiary {
         let calendar = Calendar(identifier: .gregorian)
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
-//        formatter.locale = Locale(identifier: "en_US")
+        formatter.locale = Locale(identifier: "en_US")
         
         let date = formatter.date(from: self.date)
         let dc = calendar.dateComponents([.year, .month], from: date!)

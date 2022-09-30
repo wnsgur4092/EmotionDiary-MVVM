@@ -11,6 +11,7 @@ struct DiaryListView: View {
     //MARK: - PROPERTIES
     
     @StateObject var vm : DiaryListViewModel
+    @State var isPresenting : Bool = false
     
     let layout : [GridItem] = [
         GridItem(.flexible()),
@@ -32,7 +33,7 @@ struct DiaryListView: View {
                                 let ordredItems = items.sorted(by: { $0.date < $1.date})
                                 ForEach(ordredItems) { item in
                                     NavigationLink {
-                                        DiaryDetailsView()
+                                        DiaryDetailsView(diary: item)
                                     } label: {
                                         MoodDiaryCell(diary: item)
                                             .frame(height: 50)
@@ -50,6 +51,7 @@ struct DiaryListView: View {
                 HStack{
                     Button {
                         print("New Item Button Tapped")
+                        isPresenting = true
                     } label: {
                         Image(systemName: "plus")
                             .resizable()
@@ -65,6 +67,11 @@ struct DiaryListView: View {
             }
             .navigationTitle("Emotion Diary")
         }//: NAVIGATION
+        .sheet(isPresented: $isPresenting) {
+            let vm = DiaryInputViewModel(isPresented: $isPresenting)
+            DiaryDateInputView(vm: vm)
+        }
+
     }
 }
 
