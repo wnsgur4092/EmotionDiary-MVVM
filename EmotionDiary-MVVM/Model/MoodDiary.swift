@@ -8,7 +8,7 @@
 import Foundation
 
 struct MoodDiary : Identifiable, Codable {
-    var id = UUID()
+    var id: UUID = UUID()
     var date : String
     var text : String
     var mood : Mood

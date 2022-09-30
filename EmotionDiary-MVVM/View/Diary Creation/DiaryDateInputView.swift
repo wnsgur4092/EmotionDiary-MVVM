@@ -22,13 +22,13 @@ struct DiaryDateInputView: View {
                 Spacer()
                 
                 NavigationLink {
-                    DiaryMoodInputView()
+                    DiaryMoodInputView(vm: vm)
                 } label: {
                     Text("NEXT")
                         .frame(width: 200, height: 80)
                         .background(Color.pink)
                         .foregroundColor(.white)
-                        .cornerRadius(40)
+                         .cornerRadius(40)
                 }
             } //: VSTACK
         } //: NAVIGATION VIEW

@@ -8,6 +8,9 @@
 import Foundation
 
 final class DiaryListViewModel : ObservableObject {
+    
+//    let storage : 
+    
     @Published var list : [MoodDiary] = MoodDiary.list
     @Published var dic : [String : [MoodDiary]] = [:]
     
