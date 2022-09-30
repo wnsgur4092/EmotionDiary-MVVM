@@ -10,30 +10,32 @@ import SwiftUI
 struct DiaryDetailsView: View {
     //MARK: - PROPERTIES
     
-    
-    var diary : MoodDiary
+    @StateObject var vm : DiaryDetailsViewModel
+//    var diary : MoodDiary
     
     //MARK: - BODY
     var body: some View {
         VStack {
             ScrollView {
                 VStack(spacing: 50) {
-                    Text(formattedDate(dateString: diary.date))
+                    Text(formattedDate(dateString: vm.diary.date))
                         .font(.system(size: 30, weight: .bold))
-                    Image(systemName: diary.mood.imageName)
+                    Image(systemName: vm.diary.mood.imageName)
                         .renderingMode(.original)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 0)
                         .frame(height: 80)
-                    Text(diary.text)
+                    Text(vm.diary.text)
                         .font(.system(size: 20, weight: .medium))
                 } //: VSTACK
+                .frame(maxWidth: .infinity)
             } //: SCROLLVIEW
             
             HStack{
                 Button {
                     print("Delete Button Tapped")
+                    vm.delete()
                 } label: {
                     Image(systemName: "trash")
                         .renderingMode(.original)
@@ -46,6 +48,7 @@ struct DiaryDetailsView: View {
                 Spacer()
             } //: HSTACK
         } //: VSTACK
+
     }
 }
 
@@ -66,6 +69,7 @@ extension DiaryDetailsView {
 //MARK: - PREVIEW
 struct DiaryDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        DiaryDetailsView(diary: MoodDiary.list[0])
+        let vm = DiaryDetailsViewModel(diaries: .constant(MoodDiary.list), diary: MoodDiary.list[0])
+        DiaryDetailsView(vm: vm)
     }
 }

@@ -13,6 +13,7 @@ final class DiaryInputViewModel : ObservableObject {
     
     @Published var diaries : Binding<[MoodDiary]>
     @Published var diary : MoodDiary = MoodDiary(date: "", text: "", mood: .great)
+    
     @Published var date : Date = Date()
     @Published var text : String = ""
     @Published var mood : Mood = .great

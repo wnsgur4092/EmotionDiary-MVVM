@@ -33,7 +33,8 @@ struct DiaryListView: View {
                                 let ordredItems = items.sorted(by: { $0.date < $1.date})
                                 ForEach(ordredItems) { item in
                                     NavigationLink {
-                                        DiaryDetailsView(diary: item)
+                                        let vm = DiaryDetailsViewModel(diaries: $vm.list, diary: item)
+                                        DiaryDetailsView(vm: vm)
                                     } label: {
                                         MoodDiaryCell(diary: item)
                                             .frame(height: 50)
