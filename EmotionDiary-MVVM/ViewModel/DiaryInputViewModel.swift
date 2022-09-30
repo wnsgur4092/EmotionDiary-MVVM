@@ -11,6 +11,7 @@ import Combine
 
 final class DiaryInputViewModel : ObservableObject {
     
+    @Published var diaries : Binding<[MoodDiary]>
     @Published var diary : MoodDiary = MoodDiary(date: "", text: "", mood: .great)
     @Published var date : Date = Date()
     @Published var text : String = ""
@@ -20,13 +21,13 @@ final class DiaryInputViewModel : ObservableObject {
     
     var subscriptions = Set<AnyCancellable>()
     
-    init(isPresented: Binding<Bool>) {
+    init(isPresented: Binding<Bool>, diaries : Binding<[MoodDiary]>) {
         self.isPresented = isPresented
+        self.diaries = diaries
         
         $date.sink { date in
             print(">>> Selected date : \(date)")
             self.update(date: date)
-            
         }.store(in: &subscriptions)
         
         $mood.sink { mood in
@@ -56,8 +57,7 @@ final class DiaryInputViewModel : ObservableObject {
     
     func completed() {
         guard diary.date.isEmpty == false else { return }
-        
-        
+        diaries.wrappedValue.append(diary)
         isPresented.wrappedValue = false
     }
 }
